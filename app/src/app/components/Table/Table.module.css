@@ -8,6 +8,10 @@
   /* border-collapse: separate; */
 }
 
+.captionContainer {
+  text-align: left;
+}
+
 .tableHead {
   border: 1px solid;
 }

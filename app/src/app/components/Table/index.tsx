@@ -74,7 +74,7 @@ export default function Table({
   if (margin) style.margin = margin;
   return (
     <table className={styles.tableContainer} style={style}>
-      <caption>{title}</caption>
+      <caption className={styles.captionContainer}>{title}</caption>
       <tbody>
         {tableHead}
         {tableRows}

@@ -5,6 +5,8 @@ import Table from "../components/Table";
 import { userInfo } from "os";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import Modal from "../components/Modal";
+import UserForm from "../components/Forms/UserForm";
 
 interface User {
   id: number;
@@ -32,9 +34,28 @@ export default function UsersPage() {
     );
   });
 
-  const handleTableDataCellRowClick = (userId: string) => {
+  const handleCloseModal = () => {
+    setUserModal(null);
+  };
+
+  const buildUserForm = (user: User) => {
+    return <UserForm />;
+  };
+
+  const handleTableDataCellRowClick = (userId: number) => {
     // router.push(`/users/${userId}`);
-    setUserModal(<h1>{userId}</h1>);
+    const user = users.find((u) => u.id === userId);
+
+    if (user) {
+      const userForm = buildUserForm(user);
+      setUserModal(
+        <Modal
+          onCloseModal={handleCloseModal}
+          title={"TÍTULO"}
+          content={userForm}
+        />
+      );
+    } else alert("Usuário inválido. Contactar o suporte.");
   };
 
   return (
@@ -43,7 +64,7 @@ export default function UsersPage() {
         {/* <div className={styles.userListContainer}>{userListItems}</div> */}
         <Table
           title={"Usuários"}
-          columns={["code", "name", "cpf"]}
+          columns={["Código", "Nome", "CPF"]}
           rows={usersInfo}
           clickable
           margin={""}
