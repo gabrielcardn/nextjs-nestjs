@@ -1,0 +1,8 @@
+[
+    {
+        "id": "users",
+        "title": "Usuários",
+        "hint": "Tela de usuários",
+        "path": "/users"
+    }
+]

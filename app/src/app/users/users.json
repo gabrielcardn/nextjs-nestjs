@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "code": "U0001",
+    "name": "Gabriel",
+    "password": "xxx",
+    "cpf": "11122233344"
+  },
+  {
+    "id": 2,
+    "code": "U0002",
+    "name": "Rebecca",
+    "password": "xxx",
+    "cpf": "55566677788"
+  },
+  {
+    "id": 3,
+    "code": "U0003",
+    "name": "João",
+    "password": "xxx",
+    "cpf": "99988877766"
+  }
+]

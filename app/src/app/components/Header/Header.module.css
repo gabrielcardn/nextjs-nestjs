@@ -1,0 +1,32 @@
+.main {
+    background-color: aqua;
+}
+
+.container {
+    background-color: brown;
+}
+
+.buttonGroup button {
+    background-color: #04AA6D; /* Green background */
+    border: 1px solid green; /* Green border */
+    color: white; /* White text */
+    padding: 10px 24px; /* Some padding */
+    cursor: pointer; /* Pointer/hand icon */
+    float: left; /* Float the buttons side by side */
+  }
+  
+  .buttonGroup button:not(:last-child) {
+    border-right: none; /* Prevent double borders */
+  }
+  
+  /* Clear floats (clearfix hack) */
+  .buttonGroup:after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+  
+  /* Add a background color on hover */
+  .buttonGroup button:hover {
+    background-color: #3e8e41;
+  }

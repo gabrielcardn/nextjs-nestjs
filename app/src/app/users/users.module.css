@@ -1,0 +1,32 @@
+.main {
+  border: solid 1px blue;
+  height: 100%;
+  width: 100%;
+  padding: 4px;
+}
+
+.container {
+  border: solid 1px red;
+  height: 100%;
+  /* height: fit-content; */
+  /* min-height: 50%; */
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  padding: 4px;
+}
+
+.userListContainer {
+  display: grid;
+  border: orangered;
+  width: 100%;
+  height: fit-content;
+  gap: 4px;
+}
+
+.userListItem {
+  background-color: aqua;
+}
+.userListItem:hover {
+  filter: brightness(90%);
+}

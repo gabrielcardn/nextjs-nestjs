@@ -1,0 +1,29 @@
+.tableContainer {
+  width: 100%;
+  height: fit-content;
+  text-align: left;
+  float: left;
+  border-collapse: collapse;
+  border-spacing: 0;
+  /* border-collapse: separate; */
+}
+
+.tableHead {
+  border: 1px solid;
+}
+.tableHeadRow {
+  border: 1px solid;
+  background-color: #808080;
+}
+.tableDataCell {
+  border: 1px solid;
+}
+.tableDataCellRow {
+  border: 1px solid;
+  background-color: #c0c0c0;
+}
+
+.hoverEffect:hover {
+  background-color: #a9a9a9;
+  cursor: pointer;
+}
