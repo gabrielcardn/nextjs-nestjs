@@ -10,8 +10,8 @@ export default function Home() {
           <div className={styles.imageContainer}>
             <Image
               src="/images/UML.png"
-              layout="fill"
-              objectFit="contain"
+              fill
+              style={{ objectFit: "contain" }}
               alt="Descrição UML do desafio"
             />
           </div>

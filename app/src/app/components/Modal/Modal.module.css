@@ -19,8 +19,7 @@
 
 .header {
   display: flex;
-  flex-direction: row;
-  width: 100%;
+  flex-direction: row-reverse;
   justify-content: space-between;
   align-items: center;
 }
@@ -32,7 +31,6 @@
 
 .close {
   color: #aaa;
-  float: right;
   font-size: 28px;
   font-weight: bold;
 }
@@ -46,4 +44,13 @@
 
 .divider {
   border-top: 2px solid #bbb;
+}
+
+.content {
+  height: 50vh;
+  overflow-y: scroll;
+}
+
+.footer {
+  background-color: aqua;
 }
