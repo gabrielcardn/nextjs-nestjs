@@ -10,6 +10,8 @@
 
 .captionContainer {
   text-align: left;
+  font-size: large;
+  font-weight: bold;
 }
 
 .tableHead {

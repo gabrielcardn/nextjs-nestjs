@@ -1,7 +1,5 @@
 "use client";
-import Link from "next/link";
 import styles from "./Table.module.css";
-import options from "./options.json";
 
 interface TableProperties {
   title: string;

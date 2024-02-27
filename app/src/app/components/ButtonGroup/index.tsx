@@ -1,10 +1,11 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import styles from "./ButtonGroup.module.css";
+import Button from "../Button";
 
 interface ButtonGroupProps {
-  buttons: ReactNode[];
-  leftButtons: ReactNode[];
-  rightButtons: ReactNode[];
+  buttons: any[];
+  leftButtons: any[];
+  rightButtons: any[];
 }
 
 const ButtonGroup: React.FC<ButtonGroupProps> = ({
@@ -18,7 +19,7 @@ const ButtonGroup: React.FC<ButtonGroupProps> = ({
         <div className={styles.buttonGroupLeft}>
           {leftButtons.map((button, index) => (
             <div className={styles.buttonContainer} key={index}>
-              {button}
+              <Button {...button} />
             </div>
           ))}
         </div>
@@ -27,7 +28,7 @@ const ButtonGroup: React.FC<ButtonGroupProps> = ({
         <div className={styles.buttonGroup}>
           {buttons.map((button, index) => (
             <div className={styles.buttonContainer} key={index}>
-              {button}
+              <Button {...button} />
             </div>
           ))}
         </div>
@@ -37,7 +38,7 @@ const ButtonGroup: React.FC<ButtonGroupProps> = ({
         <div className={styles.buttonGroupRight}>
           {rightButtons.map((button, index) => (
             <div className={styles.buttonContainer} key={index}>
-              {button}
+              <Button {...button} />
             </div>
           ))}
         </div>

@@ -16,10 +16,14 @@
   width: 100%;
 }
 
+.buttonGroupLeft {
+  justify-content: flex-start;
+}
+
 .buttonGroupRight {
   justify-content: flex-end;
 }
 
-.buttonContainer {
-
+.buttonContainer + .buttonContainer {
+  padding-left: 4px;
 }

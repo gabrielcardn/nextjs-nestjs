@@ -1,20 +1,30 @@
+import { Suspense } from "react";
 import ButtonGroup from "../ButtonGroup";
 import styles from "./Modal.module.css";
+
+interface ModalButton {
+  id: string;
+  title: string;
+  onClick: Function;
+  position: "left" | "center" | "right";
+}
 
 interface Modal {
   title: string;
   content: any;
   onCloseModal: Function;
+  buttons: ModalButton[];
 }
 
-export default function Modal({ title, content, onCloseModal }: Modal) {
+export default function Modal({
+  title,
+  content,
+  onCloseModal,
+  buttons,
+}: Modal) {
   const handleCloseModal = () => {
     onCloseModal();
   };
-
-  const buttons = ["Button 1", "Button 2", "Button 3"];
-  const leftButtons = ["Left Button 1", "Left Button 2"];
-  const rightButtons = ["Right Button 1", "Right Button 2"];
 
   return (
     <div className={styles.container}>
@@ -25,33 +35,17 @@ export default function Modal({ title, content, onCloseModal }: Modal) {
           </div>
         </div>
         {title ? <div className={styles.title}>{title}</div> : null}
-        <div className={styles.divider} />
-        <div className={styles.content}>{content}</div>
-        <div className={styles.divider} />
+        <div className={styles.divider} style={{ margin: "4px 0" }} />
+        <div className={styles.content}>
+          {<Suspense fallback={<p>Loading...</p>}>{content}</Suspense>}
+        </div>
+        <div className={styles.divider} style={{ margin: "4px 0" }} />
         <div className={styles.footer}>
-          <h1>ButtonGroup Examples</h1>
-          Exemplo 1: Apenas botões no centro
-          <ButtonGroup buttons={buttons} leftButtons={[]} rightButtons={[]} />
-          Exemplo 2: Botões à esquerda e à direita
           <ButtonGroup
-            buttons={[]}
-            leftButtons={leftButtons}
-            rightButtons={rightButtons}
+            buttons={buttons.filter((b) => b.position === "center")}
+            leftButtons={buttons.filter((b) => b.position === "left")}
+            rightButtons={buttons.filter((b) => b.position === "right")}
           />
-          Exemplo 3: Sem botões à esquerda
-          <ButtonGroup
-            buttons={[]}
-            leftButtons={[]}
-            rightButtons={rightButtons}
-          />
-          Exemplo 4: Sem botões à direita
-          <ButtonGroup
-            buttons={[]}
-            rightButtons={[]}
-            leftButtons={leftButtons}
-          />
-          Exemplo 5: Sem botões à esquerda e à direita
-          <ButtonGroup buttons={buttons} leftButtons={[]} rightButtons={[]} />
         </div>
       </div>
     </div>

@@ -2,7 +2,6 @@
 import styles from "./users.module.css";
 import json from "./users.json";
 import Table from "../components/Table";
-import { userInfo } from "os";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Modal from "../components/Modal";
@@ -14,6 +13,13 @@ interface User {
   name: string;
   password: string;
   cpf: string;
+}
+
+interface UserButton {
+  id: string;
+  title: string;
+  onClick: Function;
+  position: "left" | "center" | "right";
 }
 
 export default function UsersPage() {
@@ -39,7 +45,41 @@ export default function UsersPage() {
   };
 
   const buildUserForm = (user: User) => {
-    return <UserForm />;
+    return <UserForm id={user.id} />;
+  };
+
+  const buildUserFormButtons = (user: User) => {
+    let leftButtons: UserButton[] = [];
+    let rightButtons: UserButton[] = [];
+    let buttons: UserButton[] = [];
+    leftButtons.push({
+      id: "delete",
+      title: "Deletar",
+      onClick: () => {
+        if (window.confirm("Deletar usuário?")) {
+          alert("Usuário " + user.name + " deletado!");
+        }
+      },
+      position: "left",
+    });
+    rightButtons.push({
+      id: "cancel",
+      title: "Cancelar",
+      onClick: () => {
+        handleCloseModal();
+      },
+      position: "right",
+    });
+    rightButtons.push({
+      id: "save",
+      title: "Salvar",
+      onClick: () => {
+        alert("Usuário " + user.name + " salvo!");
+      },
+      position: "right",
+    });
+
+    return [...leftButtons, ...buttons, ...rightButtons];
   };
 
   const handleTableDataCellRowClick = (userId: number) => {
@@ -48,11 +88,13 @@ export default function UsersPage() {
 
     if (user) {
       const userForm = buildUserForm(user);
+      const userFormButtons = buildUserFormButtons(user);
       setUserModal(
         <Modal
           onCloseModal={handleCloseModal}
-          title={"TÍTULO"}
+          title={"Usuário"}
           content={userForm}
+          buttons={userFormButtons}
         />
       );
     } else alert("Usuário inválido. Contactar o suporte.");

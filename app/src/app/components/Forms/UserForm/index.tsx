@@ -1,9 +1,25 @@
-import Link from "next/link";
+"use client";
 import styles from "./UserForm.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export default function UserForm() {
+interface UserFormProps {
+  id: number;
+}
+
+export default function UserForm({ id }: UserFormProps) {
+  const [codeValue, setValue] = useState<string>();
+  const [nameValue, setName] = useState<string>();
   const [cpfValue, setCpf] = useState<string>();
+  const [userData, setUserData] = useState<any>(null);
+
+  const handleCodeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    let inputValue = event.target.value;
+    setValue(inputValue);
+  };
+  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    let inputValue = event.target.value;
+    setName(inputValue);
+  };
   const handleCpfChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     // Obtém o valor atual do input
     let inputValue = event.target.value;
@@ -25,8 +41,27 @@ export default function UserForm() {
     setCpf(inputValue);
   };
 
-  return (
-    <div>
+  useEffect(() => {
+    console.log("useEffect");
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`/api/users/${id}`, {
+          method: "GET",
+          cache: "no-store",
+        });
+        const d = await response.json();
+        setUserData(d.data);
+      } catch (error) {
+        console.error("Erro durante a requisição GET:", error);
+      }
+    };
+
+    fetchData();
+  }, [id]);
+
+  let content = <p>Carregando...</p>;
+  if (userData)
+    content = (
       <form>
         <div className={styles.formRowContainer}>
           <label>Código</label>
@@ -35,6 +70,8 @@ export default function UserForm() {
             id="code"
             name="Código"
             placeholder="Código do usuário"
+            onChange={handleCodeChange}
+            value={codeValue || userData.code}
           />
         </div>
         <div className={styles.formRowContainer}>
@@ -44,6 +81,8 @@ export default function UserForm() {
             id="name"
             name="Nome"
             placeholder="Nome do usuário"
+            onChange={handleNameChange}
+            value={nameValue || userData.name}
           />
         </div>
         <div className={styles.formRowContainer}>
@@ -55,10 +94,11 @@ export default function UserForm() {
             placeholder="CPF do usuário"
             onChange={handleCpfChange}
             maxLength={14}
-            value={cpfValue}
+            value={cpfValue || userData.cpf}
           />
         </div>
       </form>
-    </div>
-  );
+    );
+
+  return <div className={styles.container}>{content}</div>;
 }

@@ -1,5 +1,16 @@
+.container {
+  width: 100%;
+}
+
 .formRowContainer {
   display: flex;
   flex-direction: column;
   width: 100%;
+  padding: 4px 0;
+  padding-right: 4px;
+}
+
+.formRowContainer input,
+.formRowContainer label {
+  font-size: large;
 }
