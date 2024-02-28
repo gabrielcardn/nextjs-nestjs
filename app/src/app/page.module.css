@@ -1,12 +1,10 @@
 .main {
-  border: solid 1px blue;
   height: 100%;
   width: 100%;
   padding: 4px;
 }
 
 .container {
-  border: solid 1px red;
   height: fit-content;
   min-height: 50%;
   width: 100%;

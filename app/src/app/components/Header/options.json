@@ -1,8 +1,14 @@
 [
-    {
-        "id": "users",
-        "title": "Usuários",
-        "hint": "Tela de usuários",
-        "path": "/users"
-    }
+  {
+    "id": "back",
+    "title": "Voltar",
+    "hint": "Navegar para tela anterior",
+    "path": "back"
+  },
+  {
+    "id": "users",
+    "title": "Usuários",
+    "hint": "Tela de usuários",
+    "path": "/users"
+  }
 ]

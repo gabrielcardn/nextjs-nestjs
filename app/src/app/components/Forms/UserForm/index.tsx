@@ -4,21 +4,40 @@ import { useEffect, useState } from "react";
 
 interface UserFormProps {
   id: number;
+  onChange: Function;
 }
 
-export default function UserForm({ id }: UserFormProps) {
-  const [codeValue, setValue] = useState<string>();
+export default function UserForm({ id, onChange }: UserFormProps) {
+  const [codeValue, setCode] = useState<string>();
   const [nameValue, setName] = useState<string>();
   const [cpfValue, setCpf] = useState<string>();
-  const [userData, setUserData] = useState<any>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const handleChangeFormValues = () => {
+    console.log(
+      "(handleChangeFormValues) codeValue: ",
+      codeValue,
+      "nameValue: ",
+      nameValue,
+      "cpfValue: ",
+      cpfValue
+    );
+    onChange({
+      code: codeValue,
+      name: nameValue,
+      cpf: cpfValue,
+    });
+  };
 
   const handleCodeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     let inputValue = event.target.value;
-    setValue(inputValue);
+    setCode(inputValue);
+    handleChangeFormValues();
   };
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     let inputValue = event.target.value;
     setName(inputValue);
+    handleChangeFormValues();
   };
   const handleCpfChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     // Obtém o valor atual do input
@@ -39,10 +58,11 @@ export default function UserForm({ id }: UserFormProps) {
     }
 
     setCpf(inputValue);
+    handleChangeFormValues();
   };
 
   useEffect(() => {
-    console.log("useEffect");
+    setLoading(true);
     const fetchData = async () => {
       try {
         const response = await fetch(`/api/users/${id}`, {
@@ -50,17 +70,33 @@ export default function UserForm({ id }: UserFormProps) {
           cache: "no-store",
         });
         const d = await response.json();
-        setUserData(d.data);
+        const { data } = d;
+        setCode(data.code);
+        setName(data.name);
+        setCpf(data.cpf);
       } catch (error) {
         console.error("Erro durante a requisição GET:", error);
       }
     };
 
-    fetchData();
+    fetchData()
+      .then(() => setLoading(false))
+      .finally(() => {
+        console.log(
+          "(useEffect-finally) codeValue: ",
+          codeValue,
+          "nameValue: ",
+          nameValue,
+          "cpfValue: ",
+          cpfValue
+        );
+
+        handleChangeFormValues();
+      });
   }, [id]);
 
   let content = <p>Carregando...</p>;
-  if (userData)
+  if (!loading)
     content = (
       <form>
         <div className={styles.formRowContainer}>
@@ -71,7 +107,8 @@ export default function UserForm({ id }: UserFormProps) {
             name="Código"
             placeholder="Código do usuário"
             onChange={handleCodeChange}
-            value={codeValue || userData.code}
+            value={codeValue}
+            required
           />
         </div>
         <div className={styles.formRowContainer}>
@@ -82,7 +119,8 @@ export default function UserForm({ id }: UserFormProps) {
             name="Nome"
             placeholder="Nome do usuário"
             onChange={handleNameChange}
-            value={nameValue || userData.name}
+            value={nameValue}
+            required
           />
         </div>
         <div className={styles.formRowContainer}>
@@ -94,7 +132,8 @@ export default function UserForm({ id }: UserFormProps) {
             placeholder="CPF do usuário"
             onChange={handleCpfChange}
             maxLength={14}
-            value={cpfValue || userData.cpf}
+            value={cpfValue}
+            required
           />
         </div>
       </form>

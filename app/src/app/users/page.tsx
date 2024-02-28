@@ -24,10 +24,11 @@ interface UserButton {
 
 export default function UsersPage() {
   const [userModal, setUserModal] = useState<any>(null);
+  const [formValues, setFormValues] = useState<any>({});
   const router = useRouter();
   const users: User[] = json;
   let usersInfo: any = [];
-  const userListItems: JSX.Element[] = users.map((user) => {
+  users.forEach((user) => {
     const { id, code, name, password, cpf } = user;
     usersInfo.push({
       id: id,
@@ -44,8 +45,18 @@ export default function UsersPage() {
     setUserModal(null);
   };
 
+  const handleChangeForm = (values: any) => {
+    console.log("(UsersPage)handleChangeForm: ", values);
+    setFormValues(values);
+  };
+
   const buildUserForm = (user: User) => {
-    return <UserForm id={user.id} />;
+    return <UserForm id={user.id} onChange={handleChangeForm} />;
+  };
+
+  const handleSave = () => {
+    console.log("formValues: ", formValues);
+    alert("Usuário salvo!");
   };
 
   const buildUserFormButtons = (user: User) => {
@@ -73,9 +84,7 @@ export default function UsersPage() {
     rightButtons.push({
       id: "save",
       title: "Salvar",
-      onClick: () => {
-        alert("Usuário " + user.name + " salvo!");
-      },
+      onClick: handleSave,
       position: "right",
     });
 
@@ -83,7 +92,6 @@ export default function UsersPage() {
   };
 
   const handleTableDataCellRowClick = (userId: number) => {
-    // router.push(`/users/${userId}`);
     const user = users.find((u) => u.id === userId);
 
     if (user) {
@@ -103,7 +111,6 @@ export default function UsersPage() {
   return (
     <main className={styles.main}>
       <div className={styles.container}>
-        {/* <div className={styles.userListContainer}>{userListItems}</div> */}
         <Table
           title={"Usuários"}
           columns={["Código", "Nome", "CPF"]}
