@@ -1,5 +1,5 @@
-.container {
-  width: 100%;
+.formContainer {
+  height: 100%;
 }
 
 .formRowContainer {
@@ -13,4 +13,21 @@
 .formRowContainer input,
 .formRowContainer label {
   font-size: large;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.content {
+  flex: 1;
+  overflow-y: auto;
+}
+.divider {
+  border-top: 2px solid #bbb;
+}
+
+.footer {
+  width: 100%;
 }

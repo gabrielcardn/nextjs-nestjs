@@ -16,12 +16,7 @@ interface Modal {
   buttons: ModalButton[];
 }
 
-export default function Modal({
-  title,
-  content,
-  onCloseModal,
-  buttons,
-}: Modal) {
+export default function Modal({ title, content, onCloseModal }: Modal) {
   const handleCloseModal = () => {
     onCloseModal();
   };
@@ -35,18 +30,7 @@ export default function Modal({
           </div>
         </div>
         {title ? <div className={styles.title}>{title}</div> : null}
-        <div className={styles.divider} style={{ margin: "4px 0" }} />
-        <div className={styles.content}>
-          {<Suspense fallback={<p>Loading...</p>}>{content}</Suspense>}
-        </div>
-        <div className={styles.divider} style={{ margin: "4px 0" }} />
-        <div className={styles.footer}>
-          <ButtonGroup
-            buttons={buttons.filter((b) => b.position === "center")}
-            leftButtons={buttons.filter((b) => b.position === "left")}
-            rightButtons={buttons.filter((b) => b.position === "right")}
-          />
-        </div>
+        <div className={styles.content}>{content}</div>
       </div>
     </div>
   );

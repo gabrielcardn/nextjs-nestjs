@@ -51,7 +51,13 @@ export default function UsersPage() {
   };
 
   const buildUserForm = (user: User) => {
-    return <UserForm id={user.id} onChange={handleChangeForm} />;
+    return (
+      <UserForm
+        id={user.id}
+        onChange={handleChangeForm}
+        onCloseModal={handleCloseModal}
+      />
+    );
   };
 
   const handleSave = () => {

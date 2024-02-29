@@ -9,7 +9,7 @@
   min-height: 50%;
   width: 100%;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 }
 
 .contentContainer {
@@ -20,6 +20,7 @@
 .imageContainer {
   position: relative;
   flex: 1;
+  min-height: 200px;
 }
 
 .descriptionContainer {
