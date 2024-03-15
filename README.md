@@ -1,5 +1,5 @@
 # Nome do Projeto
-
+## Em construção - apenas um template criado para documentar e apresentar o projeto
 Descrição curta do projeto.
 
 ## Índice
